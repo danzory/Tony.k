@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#ffffff">
+    <title>דוח התקדמות - טוני קפיטנסקי</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Assistant', sans-serif;
+            background-color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .pt-safe { padding-top: env(safe-area-inset-top); }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+
+        .tab-active {
+            color: #0f766e; /* Teal-700 */
+            border-bottom: 2px solid #0f766e;
+            background-color: rgba(15, 118, 110, 0.05);
+        }
+        
+        body { overscroll-behavior-y: none; }
+        
+        .placeholder-text { color: #9ca3af; font-style: italic; }
+
+        #toast {
+            visibility: hidden;
+            min-width: 90%; 
+            background-color: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            color: #fff; 
+            text-align: center; 
+            border-radius: 50px; 
+            padding: 16px; 
+            position: fixed; 
+            z-index: 100; 
+            left: 50%; 
+            top: 20px;
+            transform: translateX(-50%) translateY(-100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(env(safe-area-inset-top));
+        }
+
+        input, select, textarea { font-size: 16px !important; }
+        .smooth-scroll { -webkit-overflow-scrolling: touch; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+        #chartModal { transition: opacity 0.3s ease; }
+        #chartModal.hidden { opacity: 0; pointer-events: none; }
+        #chartModal:not(.hidden) { opacity: 1; pointer-events: auto; }
+        .chart-container { position: relative; height: 300px; width: 100%; }
+
+        /* Training table adjustments */
+        #trainingContent table th:nth-child(1) { width: 45% !important; }
+        #trainingContent table th:nth-child(2),
+        #trainingContent table td:nth-child(2) {
+            width: 10% !important;
+            min-width: 60px;
+            text-align: center !important;
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+        }
+        #trainingContent table th:nth-child(3) { width: 45% !important; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="fixed top-0 left-0 w-full h-safe-top bg-white z-50 pt-safe"></div>
+
+    <div class="container relative mx-auto bg-white sm:rounded-3xl sm:shadow-2xl sm:my-8 min-h-screen sm:min-h-[calc(100vh-4rem)] overflow-hidden max-w-4xl">
+        
+        <header class="relative text-center pt-8 pb-6 px-4 pt-safe bg-white z-40 flex flex-col items-center border-b border-slate-100">
+            <div class="flex-shrink-0 mb-4">
+                <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg" class="w-32 sm:w-40 h-auto">
+                    <g fill="#a0aec0">
+                        <rect x="18" y="6" width="8" height="38" rx="2"/>
+                        <rect x="10" y="9" width="8" height="32" rx="2"/>
+                        <rect x="2" y="12" width="8" height="26" rx="2"/>
+                    </g>
+                    <rect x="26" y="18" width="6" height="14" rx="2" fill="#4a5568"/>
+                    
+                    <g fill="#a0aec0">
+                        <rect x="94" y="6" width="8" height="38" rx="2"/>
+                        <rect x="102" y="9" width="8" height="32" rx="2"/>
+                        <rect x="110" y="12" width="8" height="26" rx="2"/>
+                    </g>
+                     <rect x="88" y="18" width="6" height="14" rx="2" fill="#4a5568"/>
+                    
+                    <!-- Modified the line color to match Tony's Teal theme -->
+                    <path d="M 32 25 L 50 25 L 53 28 L 58 10 L 63 45 L 66 25 L 88 25" stroke="#0d9488" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+                </svg>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">המרחב של טוני</h1>
+            <p class="text-base text-teal-600 font-bold mt-1">יורדים במשקל. משפרים כושר.</p>
+        </header>
+
+        <nav class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+            <div class="flex overflow-x-auto smooth-scroll no-scrollbar px-2 sm:justify-center gap-1 pb-1 pt-1">
+                <button id="profileTab" class="whitespace-nowrap flex-shrink-0 py-3 px-4 sm:px-6 font-bold text-sm tab-active rounded-lg transition-all flex items-center gap-2">
+                    <i data-lucide="clipboard-list" class="w-4 h-4"></i> פרופיל
+                </button>
+                <button id="progressTab" class="whitespace-nowrap flex-shrink-0 py-3 px-4 sm:px-6 font-bold text-sm text-slate-500 rounded-lg transition-all flex items-center gap-2">
+                    <i data-lucide="trending-up" class="w-4 h-4"></i> התקדמות
+                </button>
+                <button id="trainingTab" class="whitespace-nowrap flex-shrink-0 py-3 px-4 sm:px-6 font-bold text-sm text-slate-500 rounded-lg transition-all flex items-center gap-2">
+                    <i data-lucide="dumbbell" class="w-4 h-4"></i> אימונים
+                </button>
+                <button id="nutritionTab" class="whitespace-nowrap flex-shrink-0 py-3 px-4 sm:px-6 font-bold text-sm text-slate-500 rounded-lg transition-all flex items-center gap-2">
+                    <i data-lucide="utensils" class="w-4 h-4"></i> תזונה
+                </button>
+            </div>
+        </nav>
+
+        <main class="p-4 sm:p-8 bg-slate-50 min-h-screen sm:min-h-0">
+            
+            <div id="contentPanes" class="pb-10">
+                
+                <!-- PROFILE TAB -->
+                <div id="profileContent">
+                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+                        <div class="bg-teal-600 px-6 py-4 flex items-center gap-3">
+                            <i data-lucide="id-card" class="text-white w-6 h-6"></i>
+                            <h2 class="text-xl font-bold text-white">פרטים אישיים</h2>
+                        </div>
+                        <div class="p-6 grid grid-cols-2 gap-y-6 gap-x-4">
+                            <div>
+                                <p class="text-sm text-slate-500 font-medium mb-1">שם מלא</p>
+                                <p class="font-bold text-slate-900">טוני קפיטנסקי</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-500 font-medium mb-1">גיל</p>
+                                <p class="font-bold text-slate-900">34</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-500 font-medium mb-1">מגדר</p>
+                                <p class="font-bold text-slate-900">זכר</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-500 font-medium mb-1">גובה</p>
+                                <p class="font-bold text-slate-900">180 ס"מ</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-500 font-medium mb-1">משקל התחלתי</p>
+                                <p class="font-bold text-slate-900">135-140 ק"ג</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+                        <div class="bg-slate-800 px-6 py-4 flex items-center gap-3">
+                            <i data-lucide="target" class="text-teal-400 w-6 h-6"></i>
+                            <h2 class="text-xl font-bold text-white">מטרות ואורח חיים</h2>
+                        </div>
+                        <div class="p-6 space-y-6">
+                            <div>
+                                <h3 class="text-sm font-bold text-teal-600 uppercase tracking-wide mb-2">מטרה עיקרית וציפיות</h3>
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                    <p class="font-bold text-slate-800 mb-2 flex items-center gap-2"><i data-lucide="arrow-down-right" class="w-4 h-4 text-red-500"></i> ירידה במשקל</p>
+                                    <p class="text-slate-600 text-sm leading-relaxed">"לשפר את הכושר הגופני שלי, להוריד משקל, ולהתחזק מנטלית."</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                    <h3 class="text-sm font-bold text-slate-500 mb-1 flex items-center gap-2"><i data-lucide="briefcase" class="w-4 h-4"></i> רמת פעילות יומיומית</h3>
+                                    <p class="font-bold text-slate-800">יושבני (עבודת משרד)</p>
+                                </div>
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                    <h3 class="text-sm font-bold text-slate-500 mb-1 flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> ימי אימון בשבוע</h3>
+                                    <p class="font-bold text-slate-800">3-4 ימים</p>
+                                </div>
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 sm:col-span-2">
+                                    <h3 class="text-sm font-bold text-slate-500 mb-1 flex items-center gap-2"><i data-lucide="history" class="w-4 h-4"></i> רקע באימונים</h3>
+                                    <p class="font-bold text-slate-800 text-sm">היו תקופות שהתאמן כמעט כל יום, ותקופות שלא התאמן בכלל. בתקופה האחרונה מתאמן ממש קצת.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-3xl shadow-sm border border-red-200 overflow-hidden">
+                            <div class="bg-red-50 px-6 py-4 border-b border-red-100 flex items-center gap-3">
+                                <i data-lucide="activity" class="text-red-500 w-5 h-5"></i>
+                                <h2 class="text-lg font-bold text-red-900">פציעות ומגבלות</h2>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-slate-700 text-sm leading-relaxed">מרפק ביד ימין. שבר את היד בגיל קטן ויש חוסר גמישות ביד, אבל <b>אין כאבים</b>.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-3xl shadow-sm border border-emerald-200 overflow-hidden">
+                            <div class="bg-emerald-50 px-6 py-4 border-b border-emerald-100 flex items-center gap-3">
+                                <i data-lucide="apple" class="text-emerald-600 w-5 h-5"></i>
+                                <h2 class="text-lg font-bold text-emerald-900">הרגלי תזונה</h2>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div>
+                                    <p class="text-xs text-slate-500 font-bold mb-1">כמות ארוחות ביום:</p>
+                                    <p class="text-sm font-medium text-slate-800">שלוש ארוחות רגילות ונשנושים בין לבין.</p>
+                                </div>
+                                <div class="border-t border-emerald-100 pt-3">
+                                    <p class="text-xs text-slate-500 font-bold mb-1">העדפות תזונתיות / מה לא אוהב:</p>
+                                    <p class="text-sm font-medium text-slate-800">אין הגבלות. אוכל כמעט הכל חוץ משרימפס.</p>
+                                </div>
+                                <div class="border-t border-emerald-100 pt-3">
+                                    <p class="text-xs text-slate-500 font-bold mb-1">שתיית מים:</p>
+                                    <p class="text-sm font-medium text-slate-800">ממש קצת. לפעמים לא שותה בכלל, לפעמים כמה כוסות. <b>שותה הרבה קפה.</b></p>
+                                </div>
+                                <div class="border-t border-emerald-100 pt-3">
+                                    <p class="text-xs text-slate-500 font-bold mb-1">תוספי תזונה:</p>
+                                    <p class="text-sm font-medium text-slate-800">שייק חלבונים.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROGRESS TAB -->
+                <div id="progressContent" class="hidden">
+                    <div class="bg-teal-50 border border-teal-200 rounded-2xl p-6 text-center mb-8">
+                        <i data-lucide="rocket" class="w-12 h-12 text-teal-500 mx-auto mb-3"></i>
+                        <h2 class="text-xl font-bold text-teal-900 mb-2">יוצאים לדרך חדשה!</h2>
+                        <p class="text-teal-700 text-sm">כאן יעודכנו משקלי העבודה וההתקדמות שלך ככל שנתקדם בתוכנית. כרגע, המיקוד הוא על בניית בסיס טכני חזק ויצירת שגרת אימונים.</p>
+                    </div>
+
+                    <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+                        <div class="bg-slate-50/50 px-6 py-4 border-b border-slate-100 flex justify-between items-center backdrop-blur">
+                            <h2 class="text-lg font-bold text-slate-800">מעקב משקלי עבודה (PRs)</h2>
+                            <i data-lucide="dumbbell" class="text-teal-500 w-5 h-5"></i>
+                        </div>
+                         <div class="overflow-x-auto smooth-scroll">
+                             <table class="min-w-full divide-y divide-slate-100" id="prTable">
+                                <tbody class="bg-white divide-y divide-slate-50">
+                                    <!-- Rows will be dynamically populated -->
+                                </tbody>
+                             </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRAINING TAB -->
+                <div id="trainingContent" class="hidden">
+                    <div class="space-y-6">
+                        
+                        <div class="bg-slate-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-teal-500 opacity-20 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                            <div class="relative z-10">
+                                <h2 class="text-xl font-black mb-4 flex items-center gap-2">
+                                    <i data-lucide="info" class="w-6 h-6 text-teal-400"></i>
+                                    דגשים לתחילת הדרך
+                                </h2>
+                                <div class="grid grid-cols-1 gap-3 text-sm opacity-95">
+                                    <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600/50">
+                                        <span class="font-bold block mb-1 text-teal-300">טכניקה לפני משקל</span>
+                                        <span class="text-slate-300">המטרה כרגע היא ללמוד את התנועות, להרגיש את השריר עובד ולבנות הרגלים, לא לשבור שיאים.</span>
+                                    </div>
+                                    <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600/50">
+                                        <span class="font-bold block mb-1 text-teal-300">התמדה</span>
+                                        <span class="text-slate-300">היעד: 3-4 אימונים בשבוע בצורה עקבית.</span>
+                                    </div>
+                                    <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600/50">
+                                        <span class="font-bold block mb-1 text-teal-300">שתיית מים (חשוב!)</span>
+                                        <span class="text-slate-300">חובה לשלב לפחות בקבוק מים גדול (1.5L) במהלך היום ובמיוחד באימון. הקפה לא מחליף מים.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Locked Training Plans placeholder -->
+                        <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden">
+                            <div class="p-8 text-center flex flex-col items-center justify-center min-h-[300px]">
+                                <div class="bg-slate-100 p-4 rounded-full mb-4">
+                                    <i data-lucide="lock" class="w-10 h-10 text-slate-400"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 mb-2">תוכנית האימונים בבנייה</h3>
+                                <p class="text-slate-500 text-sm max-w-md mx-auto">
+                                    תוכנית האימונים המותאמת שלך תוזן כאן בקרוב, לאחר שנסיים לבנות את הבסיס ונראה איך הגוף (ובמיוחד המרפק) מגיב למאמץ.
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- NUTRITION TAB -->
+                <div id="nutritionContent" class="hidden">
+                    <div class="space-y-6">
+                        
+                        <div class="bg-amber-50 text-amber-800 text-sm p-4 rounded-2xl border border-amber-200 flex items-start gap-3">
+                            <i data-lucide="droplets" class="w-6 h-6 shrink-0 mt-0.5 text-blue-500"></i>
+                            <div>
+                                <p class="font-bold mb-1">אתגר יומי: מים!</p>
+                                <p>זכור לשתות מים! המטרה הראשונית שלך היא לסיים לפחות בקבוק של ליטר וחצי ביום. הוסף כוס מים ליד כל כוס קפה שאתה שותה.</p>
+                            </div>
+                        </div>
+
+                        <!-- MENU SECTION -->
+                        <div class="bg-[#1e293b] rounded-3xl shadow-xl overflow-hidden text-slate-200 border border-slate-700">
+                            <!-- Menu Header -->
+                            <div class="bg-[#0f172a] px-6 py-5 border-b border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-teal-500/20 p-2.5 rounded-xl">
+                                        <i data-lucide="clipboard-list" class="w-6 h-6 text-teal-400"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-black text-white tracking-tight">תפריט תזונה מותאם</h2>
+                                        <p class="text-sm text-slate-400 font-medium mt-0.5">יעד: כ-2,200 קלוריות | 4 ארוחות + נשנוש</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="bg-rose-900/40 border border-rose-700/50 text-rose-300 px-3 py-1.5 rounded-lg text-xs font-bold">חלבון ~170g</span>
+                                    <span class="bg-emerald-900/40 border border-emerald-700/50 text-emerald-300 px-3 py-1.5 rounded-lg text-xs font-bold">פחמימה ~200g</span>
+                                    <span class="bg-amber-900/40 border border-amber-700/50 text-amber-300 px-3 py-1.5 rounded-lg text-xs font-bold">שומן ~70g</span>
+                                </div>
+                            </div>
+
+                            <div class="p-4 sm:p-6 space-y-6">
+                                
+                                <!-- MEAL 1 -->
+                                <div class="bg-[#2a364a] rounded-2xl p-5 border border-slate-600/50 relative">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="sunrise" class="w-5 h-5 text-amber-400"></i> ארוחה 1: בוקר / מאוחרת</h3>
+                                        <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded font-mono">~450 kcal</span>
+                                    </div>
+
+                                    <div class="bg-blue-900/30 border border-blue-500/30 text-blue-200 text-sm px-3 py-2 rounded-lg mb-4 flex items-center gap-2">
+                                        <i data-lucide="glass-water" class="w-4 h-4 text-blue-400"></i>
+                                        <span class="font-bold">חשוב: לשתות כוס מים גדולה לפני הארוחה!</span>
+                                    </div>
+                                    
+                                    <div class="space-y-4 text-sm">
+                                        <div>
+                                            <div class="inline-block bg-rose-900/30 border border-rose-700/50 text-rose-400 px-2 py-0.5 rounded font-bold mb-2">חלבון - לבחור אופציה אחת:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>3 ביצים (L)</li>
+                                                <li>יוגורט פרו (גביע וחצי - 300 גרם)</li>
+                                                <li>קוטג' 5% (קופסה שלמה - 250 גרם)</li>
+                                                <li>גבינה צהובה 9% (3 פרוסות - 75 גרם)</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 px-2 py-0.5 rounded font-bold mb-2">פחמימה - לבחור אופציה אחת:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>שיבולת שועל / קוואקר (5 כפות - כ-50 גרם)</li>
+                                                <li>לחם כוסמין (2 פרוסות)</li>
+                                                <li>לחם קל (4 פרוסות)</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-amber-900/30 border border-amber-700/50 text-amber-400 px-2 py-0.5 rounded font-bold mb-2">שומן - לבחור אופציה אחת:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>אבוקדו (40 גרם)</li>
+                                                <li>טחינה גולמית (כף וחצי - 20 גרם)</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-lime-900/30 border border-lime-700/50 text-lime-400 px-2 py-0.5 rounded font-bold mb-2">ירקות:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>סלט ירקות גדול (כ-300 גרם)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- MEAL 2 -->
+                                <div class="bg-[#2a364a] rounded-2xl p-5 border border-slate-600/50 relative">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="sun" class="w-5 h-5 text-yellow-400"></i> ארוחה 2: צהריים / אחרי אימון</h3>
+                                        <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded font-mono">~700 kcal</span>
+                                    </div>
+
+                                    <div class="bg-blue-900/30 border border-blue-500/30 text-blue-200 text-sm px-3 py-2 rounded-lg mb-4 flex items-center gap-2">
+                                        <i data-lucide="glass-water" class="w-4 h-4 text-blue-400"></i>
+                                        <span class="font-bold">חשוב: לשתות כוס מים גדולה לפני הארוחה!</span>
+                                    </div>
+                                    
+                                    <div class="space-y-4 text-sm">
+                                        <div>
+                                            <div class="inline-block bg-rose-900/30 border border-rose-700/50 text-rose-400 px-2 py-0.5 rounded font-bold mb-2">חלבון - לבחור אופציה אחת:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>חזה עוף / הודו / בקר רזה (200 גרם מבושל)</li>
+                                                <li>פילה סלמון בתנור (200 גרם)</li>
+                                                <li>דניס / לברק (250 גרם)</li>
+                                                <li>טונה (קופסה וחצי - 165 גרם)</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 px-2 py-0.5 rounded font-bold mb-2">פחמימה - לבחור אופציה אחת:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>אורז / קינואה / כוסמת (כוס וחצי מבושלת - כ-200 גרם)</li>
+                                                <li>תפוח אדמה / בטטה (200 גרם)</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-amber-900/30 border border-amber-700/50 text-amber-400 px-2 py-0.5 rounded font-bold mb-2">שומן (אופציונלי):</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>טחינה גולמית (כף וחצי) או שמן זית בסלט</li>
+                                                <li class="text-slate-400 text-xs mt-1">* אם אוכלים סלמון, אין חובה להוסיף מנת שומן נוספת כיוון שהדג שומני.</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-lime-900/30 border border-lime-700/50 text-lime-400 px-2 py-0.5 rounded font-bold mb-2">ירקות:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>סלט ירקות או ברוקולי (כ-300 גרם)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- MEAL 3 -->
+                                <div class="bg-[#2a364a] rounded-2xl p-5 border border-slate-600/50 relative">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="coffee" class="w-5 h-5 text-orange-300"></i> ארוחה 3: ארוחת ביניים</h3>
+                                        <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded font-mono">~350 kcal</span>
+                                    </div>
+
+                                    <div class="bg-blue-900/30 border border-blue-500/30 text-blue-200 text-sm px-3 py-2 rounded-lg mb-4 flex items-center gap-2">
+                                        <i data-lucide="glass-water" class="w-4 h-4 text-blue-400"></i>
+                                        <span class="font-bold">חשוב: לשתות כוס מים גדולה לפני הארוחה!</span>
+                                    </div>
+                                    
+                                    <div class="space-y-4 text-sm">
+                                        <div>
+                                            <div class="inline-block bg-rose-900/30 border border-rose-700/50 text-rose-400 px-2 py-0.5 rounded font-bold mb-2">חלבון - לבחור אופציה אחת:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>אבקת חלבון (מנה אחת - כ-30 גרם)</li>
+                                                <li>יוגורט פרו (גביע - 200 גרם)</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 px-2 py-0.5 rounded font-bold mb-2">פחמימה:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>פרי גדול (בננה / תפוח) או 2 תמרים מג'הול</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-amber-900/30 border border-amber-700/50 text-amber-400 px-2 py-0.5 rounded font-bold mb-2">שומן:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>שקדים / אגוזי מלך (חופן קטן - 15 גרם)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- MEAL 4 -->
+                                <div class="bg-[#2a364a] rounded-2xl p-5 border border-slate-600/50 relative">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="moon" class="w-5 h-5 text-indigo-400"></i> ארוחה 4: ערב</h3>
+                                        <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded font-mono">~450 kcal</span>
+                                    </div>
+
+                                    <div class="bg-blue-900/30 border border-blue-500/30 text-blue-200 text-sm px-3 py-2 rounded-lg mb-4 flex items-center gap-2">
+                                        <i data-lucide="glass-water" class="w-4 h-4 text-blue-400"></i>
+                                        <span class="font-bold">חשוב: לשתות כוס מים גדולה לפני הארוחה!</span>
+                                    </div>
+                                    
+                                    <p class="text-xs text-slate-400 mb-4">ארוחה קלה להשלמת הערכים בסוף היום.</p>
+
+                                    <div class="space-y-4 text-sm">
+                                        <div>
+                                            <div class="inline-block bg-rose-900/30 border border-rose-700/50 text-rose-400 px-2 py-0.5 rounded font-bold mb-2">חלבון - לבחור אופציה אחת:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>טונה (1 קופסה) + 2 ביצים קשות</li>
+                                                <li>4 ביצים (1 שלמה + 3 חלבונים)</li>
+                                                <li>יוגורט פרו (300 גרם) + ביצה 1</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 px-2 py-0.5 rounded font-bold mb-2">פחמימה - לבחור אופציה אחת:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>לחם קל (3 פרוסות)</li>
+                                                <li>לחם כוסמין (2 פרוסות)</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-amber-900/30 border border-amber-700/50 text-amber-400 px-2 py-0.5 rounded font-bold mb-2">שומן:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>אבוקדו (30 גרם) או טחינה גולמית (1 כף)</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div class="inline-block bg-lime-900/30 border border-lime-700/50 text-lime-400 px-2 py-0.5 rounded font-bold mb-2">ירקות:</div>
+                                            <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                                                <li>סלט ירקות עשיר</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- SNACK -->
+                                <div class="bg-slate-800/80 rounded-2xl p-4 border border-slate-700 border-dashed relative">
+                                    <h3 class="text-base font-bold text-slate-300 flex items-center gap-2 mb-2"><i data-lucide="cookie" class="w-4 h-4 text-amber-500"></i> נשנוש (אופציונלי - עד 150 קלוריות)</h3>
+                                    <p class="text-sm text-slate-400">אם רעבים בין הארוחות: פרי אחד (תפוח/בננה/תפוז), או 2 פריכיות עם שכבה דקה של גבינה/חמאת בוטנים, או מעדן חלבון קטן.</p>
+                                </div>
+
+                                <!-- GUIDELINES -->
+                                <div class="mt-8 bg-[#1e293b] p-5 rounded-2xl border-t-4 border-teal-500">
+                                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="info" class="w-5 h-5 text-teal-400"></i> דגשים חשובים לתהליך</h3>
+                                    <ul class="space-y-3 text-sm text-slate-300">
+                                        <li class="flex gap-2 items-start"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500 mt-0.5 shrink-0"></i> <div><strong class="text-teal-400">שמן ובישול:</strong> התפריט לא כולל שמן לטיגון. השתדל להשתמש בתרסיס שמן או למדוד בכפית (כפית שמן = כ-45 קלוריות שקל לפספס).</div></li>
+                                        <li class="flex gap-2 items-start"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500 mt-0.5 shrink-0"></i> <div><strong class="text-teal-400">תוספי תזונה:</strong> את הברזל חשוב לקחת רחוק ממוצרי חלב וקפה. את המגנזיום כדאי לקחת בערב לפני השינה או אחרי אימון.</div></li>
+                                        <li class="flex gap-2 items-start"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500 mt-0.5 shrink-0"></i> <div><strong class="text-teal-400">תזמון ארוחות:</strong> אין חובה לאכול בשעות מדויקות, אבל ביום של אימון השתדל שארוחה 2 (הגדולה) תהיה הארוחה שאחרי האימון.</div></li>
+                                        <li class="flex gap-2 items-start"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500 mt-0.5 shrink-0"></i> <div><strong class="text-teal-400">ירקות:</strong> שלב ירקות בבוקר ובצהריים. הם המפתח לשובע בחיטוב בזכות הסיבים התזונתיים!</div></li>
+                                        <li class="flex gap-2 items-start"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500 mt-0.5 shrink-0"></i> <div><strong class="text-teal-400">התמדה וגמישות:</strong> חיטוב הוא מרתון, לא ספרינט. חרגת קצת בארוחה? הכל בסדר! לא מקזזים, פשוט ממשיכים כרגיל בארוחה הבאה. 80% דיוק יביא 100% תוצאות.</div></li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+                            <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                    <i data-lucide="scale" class="w-5 h-5 text-teal-600"></i> מעקב ירידה במשקל
+                                </h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex gap-3 mb-6">
+                                    <div class="flex-1">
+                                        <label class="block text-xs font-bold text-slate-500 mb-1">משקל (ק"ג)</label>
+                                        <input type="number" id="weightInputVal" step="0.1" placeholder="הכנס משקל נוכחי..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100 transition-all">
+                                    </div>
+                                    <div class="flex-1">
+                                        <label class="block text-xs font-bold text-slate-500 mb-1">תאריך</label>
+                                        <input type="date" id="weightDate" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100 transition-all">
+                                    </div>
+                                </div>
+                                <button id="addWeightBtn" class="w-full bg-teal-600 text-white font-bold rounded-xl py-3 hover:bg-teal-700 transition-colors shadow-md">הוסף שקילה</button>
+                                
+                                <div class="mt-6">
+                                    <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wide mb-3 border-b border-slate-100 pb-2">היסטוריית שקילות</h4>
+                                    <ul id="weightHistoryList" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                                        <!-- Weight history will load here -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+                            <div class="bg-slate-800 px-6 py-4 flex justify-between items-center text-white">
+                                <h3 class="text-lg font-bold flex items-center gap-2">
+                                    <i data-lucide="utensils" class="w-5 h-5 text-teal-400"></i> מחשבון ארוחות
+                                </h3>
+                            </div>
+                            
+                            <div class="p-6">
+                                <div class="relative mb-6">
+                                    <div class="flex gap-2">
+                                        <div class="relative flex-1">
+                                            <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute right-3 top-3"></i>
+                                            <input type="text" id="foodSearchInput" placeholder="חפש מאכל במאגר..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pr-10 pl-4 py-2.5 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100 transition-all">
+                                        </div>
+                                    </div>
+                                    <div id="searchResults" class="hidden absolute z-50 w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-xl max-h-60 overflow-y-auto custom-scrollbar"></div>
+                                </div>
+
+                                <div id="addFoodForm" class="hidden bg-slate-50 border border-teal-100 rounded-2xl p-4 mb-6 relative">
+                                    <button id="cancelFoodBtn" class="absolute top-3 left-3 text-slate-400 hover:text-slate-600">
+                                        <i data-lucide="x" class="w-5 h-5"></i>
+                                    </button>
+                                    <h4 id="selectedFoodName" class="font-bold text-slate-800 text-lg mb-1"></h4>
+                                    <p id="selectedFoodMicros" class="text-xs text-teal-600 mb-4 font-medium"></p>
+                                    
+                                    <div class="flex items-end gap-3">
+                                        <div class="flex-1">
+                                            <label class="block text-xs font-bold text-slate-500 mb-1">כמות (בגרמים)</label>
+                                            <input type="number" id="foodAmount" value="100" class="w-full border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-teal-500 text-center font-bold">
+                                        </div>
+                                        <button id="confirmAddFoodBtn" class="bg-teal-600 text-white font-bold rounded-xl px-6 py-2 hover:bg-teal-700 transition-colors shadow-md h-[42px]">
+                                            הוסף
+                                        </button>
+                                    </div>
+                                    <div class="flex justify-between mt-3 text-xs text-slate-500 px-1" id="dynamicMacrosPreview"></div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">הארוחה הנוכחית:</h4>
+                                    <div id="mealItemsContainer" class="space-y-3 mb-4 min-h-[50px]">
+                                        <p class="text-slate-400 text-sm text-center py-4" id="emptyMealText">הארוחה ריקה.</p>
+                                    </div>
+                                    
+                                    <div class="bg-slate-800 text-white rounded-2xl p-4">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <span class="font-bold">סה"כ קלוריות:</span>
+                                            <span class="text-xl font-black text-teal-400" id="totalCals">0</span>
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-2 text-center text-sm border-t border-slate-700 pt-3">
+                                            <div>
+                                                <div class="text-slate-400 text-xs">חלבון</div>
+                                                <div class="font-bold text-pink-400"><span id="totalP">0</span>g</div>
+                                            </div>
+                                            <div class="border-x border-slate-700">
+                                                <div class="text-slate-400 text-xs">פחמימה</div>
+                                                <div class="font-bold text-yellow-400"><span id="totalC">0</span>g</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-slate-400 text-xs">שומן</div>
+                                                <div class="font-bold text-emerald-400"><span id="totalF">0</span>g</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="clearMealBtn" class="w-full mt-3 text-slate-500 text-sm hover:text-red-500 transition-colors py-2 hidden">נקה ארוחה</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <div id="toast">
+            <div class="flex items-center justify-center gap-2">
+                <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+                <span id="toastText">הפעולה בוצעה!</span>
+            </div>
+        </div>
+
+        <!-- Chart Modal -->
+        <div id="chartModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl transform transition-all">
+                <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                    <h3 id="chartTitle" class="text-lg font-bold text-slate-800">גרף התקדמות</h3>
+                    <button id="closeChartBtn" class="text-slate-400 hover:text-slate-600 transition-colors p-2 rounded-full hover:bg-slate-100">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="p-6 bg-slate-50">
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // --- Tabs Logic ---
+            const tabs = ['profile', 'progress', 'training', 'nutrition'];
+            function switchTab(activeId) {
+                tabs.forEach(id => {
+                    document.getElementById(id + 'Content').classList.add('hidden');
+                    const btn = document.getElementById(id + 'Tab');
+                    btn.classList.remove('tab-active', 'text-teal-700');
+                    btn.classList.add('text-slate-500');
+                });
+                document.getElementById(activeId + 'Content').classList.remove('hidden');
+                const activeBtn = document.getElementById(activeId + 'Tab');
+                activeBtn.classList.add('tab-active', 'text-teal-700');
+                activeBtn.classList.remove('text-slate-500');
+                activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+            tabs.forEach(id => { document.getElementById(id + 'Tab').addEventListener('click', () => switchTab(id)); });
+
+            function showToast(msg) {
+                const toast = document.getElementById('toast');
+                document.getElementById('toastText').innerText = msg;
+                toast.className = "show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            }
+
+            // --- PR Data & Chart Logic ---
+            const prData = [
+                { id: 'bench_incline_smith', name: 'לחיצת חזה בסמית עליון', note: '', current: '20kg צד x 5', isNewPR: true, history: [{ date: '2026-05-03', weight: 20, reps: 5 }], unit: 'kg צד' },
+                { id: 'wide_row', name: 'חתירה רחבה', note: '', current: '32.5kg צד x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 32.5, reps: 8 }], unit: 'kg צד' },
+                { id: 'lat_raises', name: 'הרחקות כתפיים', note: '', current: '6kg x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 6, reps: 6 }], unit: 'kg' },
+                { id: 'pulldown_machine', name: 'פולי עליון במכונה', note: '', current: '35kg צד x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 35, reps: 6 }], unit: 'kg צד' },
+                { id: 'dips_assisted', name: 'מקבילים (גרביטון)', note: 'עבודה על טכניקה', current: '-112kg', isNewPR: true, history: [{ date: '2026-05-03', weight: -112, reps: 0 }], unit: 'kg (עזר)' },
+                { id: 'db_flyes', name: 'פרפר משקולות', note: '', current: '7kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 7, reps: 8 }], unit: 'kg' },
+                { id: 'hack_squat', name: 'האק סקוואט', note: '', current: '80kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 80, reps: 8 }], unit: 'kg' },
+                { id: 'preacher_machine', name: 'כומר במכונה', note: '', current: '15kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 15, reps: 8 }], unit: 'kg' },
+                { id: 'lying_leg_curl', name: 'כפיפה בשכיבה', note: '', current: '8 פלטות x 10', isNewPR: true, history: [{ date: '2026-05-03', weight: 8, reps: 10 }], unit: 'פלטות' },
+                { id: 'skull_crusher', name: 'סקול קראשר', note: '', current: '15kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 15, reps: 8 }], unit: 'kg' }
+            ];
+
+            const prTableBody = document.querySelector('#prTable tbody');
+            const chartModal = document.getElementById('chartModal');
+            const closeChartBtn = document.getElementById('closeChartBtn');
+            let progressChartInstance = null;
+
+            if (prTableBody) {
+                prData.forEach((pr, index) => {
+                    const tr = document.createElement('tr');
+                    tr.className = `active:bg-slate-50 transition-colors cursor-pointer group ${index % 2 === 0 ? 'bg-teal-50/30' : ''}`;
+                    tr.onclick = () => openChart(pr);
+                    
+                    let noteHtml = pr.note ? `<div class="text-xs text-slate-500 font-normal mt-0.5">${pr.note}</div>` : '';
+                    let newBadgeHtml = pr.isNewPR ? `<span class="bg-gradient-to-r from-slate-600 to-slate-800 text-white text-[10px] font-black rounded px-1.5 py-0.5 shadow-sm tracking-wider uppercase">Base</span>` : '';
+                    
+                    tr.innerHTML = `
+                        <td class="px-6 py-4 text-sm font-bold text-slate-800">
+                            <div class="flex items-center gap-2">
+                                <span>${pr.name}</span>
+                                <i data-lucide="bar-chart-2" class="w-4 h-4 text-slate-300 group-hover:text-teal-500 transition-colors hidden sm:block"></i>
+                            </div>
+                            ${noteHtml}
+                        </td>
+                        <td class="px-6 py-4 text-sm font-bold text-right text-teal-600 flex items-center justify-end gap-2" dir="ltr">
+                            ${newBadgeHtml}
+                            <span dir="ltr">${pr.current}</span>
+                            <i data-lucide="bar-chart-2" class="w-4 h-4 text-slate-300 group-hover:text-teal-500 transition-colors sm:hidden"></i>
+                        </td>
+                    `;
+                    prTableBody.appendChild(tr);
+                });
+            }
+
+            function openChart(pr) {
+                document.getElementById('chartTitle').innerText = `התקדמות: ${pr.name}`;
+                chartModal.classList.remove('hidden');
+                
+                const ctx = document.getElementById('progressChart').getContext('2d');
+                
+                if (progressChartInstance) {
+                    progressChartInstance.destroy();
+                }
+
+                progressChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: pr.history.map(entry => {
+                            const d = new Date(entry.date);
+                            return `${d.getDate()}/${d.getMonth()+1}`;
+                        }),
+                        datasets: [{
+                            label: `משקל (${pr.unit})`,
+                            data: pr.history.map(entry => entry.weight),
+                            borderColor: '#0f766e',
+                            backgroundColor: 'rgba(15, 118, 110, 0.1)',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#ffffff',
+                            pointBorderColor: '#0f766e',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                                callbacks: {
+                                    label: function(context) {
+                                        const entry = pr.history[context.dataIndex];
+                                        return `משקל: ${entry.weight} ${pr.unit} x ${entry.reps || 0} חזרות`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: { grid: { drawBorder: false }, ticks: { font: { family: 'Assistant' } } },
+                            x: { grid: { display: false }, ticks: { font: { family: 'Assistant' } } }
+                        }
+                    }
+                });
+            }
+
+            if(closeChartBtn) {
+                closeChartBtn.addEventListener('click', () => chartModal.classList.add('hidden'));
+                chartModal.addEventListener('click', (e) => { if (e.target === chartModal) chartModal.classList.add('hidden'); });
+            }
+
+            // --- Weight Tracker Logic ---
+            // טוני התחיל סביב 135-140, נשים נתון התחלתי וירטואלי
+            let weightHistory = [
+                { id: 1, date: '2026-05-03', weight: 137.5 }
+            ];
+            
+            document.getElementById('weightDate').valueAsDate = new Date();
+
+            function renderWeights() {
+                const list = document.getElementById('weightHistoryList');
+                list.innerHTML = '';
+                
+                const sorted = [...weightHistory].sort((a,b) => new Date(b.date) - new Date(a.date));
+                
+                if(sorted.length === 0) {
+                    list.innerHTML = '<li class="text-sm text-slate-400 text-center py-2">אין נתוני שקילה.</li>';
+                    return;
+                }
+
+                sorted.forEach((entry, index) => {
+                    const li = document.createElement('li');
+                    li.className = "flex justify-between items-center p-3 bg-white border border-slate-100 rounded-xl";
+                    
+                    const dateObj = new Date(entry.date);
+                    const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth()+1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+                    
+                    let diffHtml = '';
+                    if (index < sorted.length - 1) {
+                        const diff = (entry.weight - sorted[index+1].weight).toFixed(1);
+                        if (diff < 0) {
+                            diffHtml = `<span class="text-xs font-bold text-emerald-500 ml-2" dir="ltr">${diff} kg ↓</span>`;
+                        } else if (diff > 0) {
+                            diffHtml = `<span class="text-xs font-bold text-red-500 ml-2" dir="ltr">+${diff} kg ↑</span>`;
+                        }
+                    }
+
+                    li.innerHTML = `
+                        <div class="flex items-center">
+                            <span class="font-bold text-slate-800 text-lg w-20">${entry.weight} ק"ג</span>
+                            ${diffHtml}
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs text-slate-400">${formattedDate}</span>
+                            <button class="delete-weight-btn p-1 text-slate-300 hover:text-red-500 transition-colors" data-id="${entry.id}">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    `;
+                    list.appendChild(li);
+                });
+                lucide.createIcons();
+
+                document.querySelectorAll('.delete-weight-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.currentTarget.getAttribute('data-id'));
+                        weightHistory = weightHistory.filter(w => w.id !== id);
+                        renderWeights();
+                        showToast("השקילה נמחקה");
+                    });
+                });
+            }
+
+            document.getElementById('addWeightBtn').addEventListener('click', () => {
+                const wVal = parseFloat(document.getElementById('weightInputVal').value);
+                const dVal = document.getElementById('weightDate').value;
+                
+                if(!wVal || !dVal) {
+                    alert("אנא הזן משקל ותאריך תקינים.");
+                    return;
+                }
+                
+                weightHistory.push({ id: Date.now(), date: dVal, weight: wVal });
+                document.getElementById('weightInputVal').value = '';
+                renderWeights();
+                
+                // Show confetti if there is weight loss
+                const sorted = [...weightHistory].sort((a,b) => new Date(b.date) - new Date(a.date));
+                if (sorted.length > 1 && sorted[0].weight < sorted[1].weight) {
+                     confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#0f766e', '#14b8a6', '#99f6e4']
+                    });
+                    showToast("כל הכבוד על הירידה! 🎉");
+                } else {
+                    showToast("משקל עודכן בהצלחה!");
+                }
+            });
+
+            renderWeights();
+
+            // --- Food Database (Same as original) ---
+            const foodDB = [
+                { id: 1, name: "חזה עוף (מבושל/צלוי)", cal: 165, p: 31, c: 0, f: 3.6, micros: "חלבון רזה" },
+                { id: 2, name: "בקר טחון רזה (מבושל)", cal: 250, p: 26, c: 0, f: 15, micros: "ברזל" },
+                { id: 3, name: "פילה סלמון (אפוי)", cal: 206, p: 22, c: 0, f: 13, micros: "אומגה 3" },
+                { id: 4, name: "טונה במים (מסונן)", cal: 116, p: 26, c: 0, f: 0.8, micros: "חלבון נקי" },
+                { id: 6, name: "ביצה קשה (אחת=~50ג')", cal: 155, p: 13, c: 1.1, f: 11, micros: "חלבון איכותי" },
+                { id: 8, name: "אבקת חלבון מי גבינה", cal: 380, p: 75, c: 8, f: 5, micros: "השלמת חלבון" },
+                { id: 9, name: "קוטג' 5%", cal: 93, p: 10.5, c: 1.5, f: 5, micros: "סידן" },
+                { id: 11, name: "יוגורט פרו/GO (טבעי)", cal: 60, p: 10, c: 4, f: 0, micros: "פרוביוטיקה" },
+                { id: 16, name: "אורז לבן (מבושל)", cal: 130, p: 2.7, c: 28, f: 0.3, micros: "פחמימה זמינה" },
+                { id: 18, name: "שיבולת שועל (יבשה)", cal: 389, p: 16.9, c: 66, f: 6.9, micros: "סיבים תזונתיים" },
+                { id: 19, name: "תפוח אדמה (אפוי)", cal: 93, p: 2.5, c: 21, f: 0.1, micros: "אשלגן" },
+                { id: 20, name: "בטטה (אפויה)", cal: 90, p: 2, c: 20.7, f: 0.1, micros: "ויטמין A" },
+                { id: 21, name: "פסטה (מבושלת)", cal: 158, p: 5.8, c: 31, f: 0.9, micros: "פחמימה מורכבת" },
+                { id: 22, name: "לחם חיטה מלאה", cal: 247, p: 13, c: 41, f: 3.4, micros: "סיבים תזונתיים" },
+                { id: 30, name: "שמן זית", cal: 884, p: 0, c: 0, f: 100, micros: "שומן בריא" },
+                { id: 31, name: "אבוקדו (טרי)", cal: 160, p: 2, c: 8.5, f: 14.6, micros: "אשלגן ושומן בריא" },
+                { id: 33, name: "שקדים (טבעיים)", cal: 579, p: 21, c: 21, f: 49, micros: "ויטמין E" },
+                { id: 35, name: "טחינה גולמית", cal: 595, p: 17, c: 21, f: 53, micros: "סידן" },
+                { id: 38, name: "ברוקולי (מבושל)", cal: 35, p: 2.3, c: 7.1, f: 0.4, micros: "ויטמינים וסיבים" },
+                { id: 40, name: "עגבניה", cal: 18, p: 0.8, c: 3.9, f: 0.2, micros: "ליקופן" },
+                { id: 41, name: "מלפפון", cal: 15, p: 0.6, c: 3.6, f: 0.1, micros: "נוזלים" },
+                { id: 46, name: "בננה", cal: 89, p: 1.1, c: 22.8, f: 0.3, micros: "אשלגן" },
+                { id: 47, name: "תפוח עץ", cal: 52, p: 0.2, c: 13.8, f: 0.1, micros: "סיבים" }
+            ];
+
+            let currentMeal = [];
+            let currentSelectedFood = null;
+
+            const searchInput = document.getElementById('foodSearchInput');
+            const searchResults = document.getElementById('searchResults');
+            const addFoodForm = document.getElementById('addFoodForm');
+            const mealItemsContainer = document.getElementById('mealItemsContainer');
+            const emptyMealText = document.getElementById('emptyMealText');
+            const clearMealBtn = document.getElementById('clearMealBtn');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim().toLowerCase();
+                if (query.length === 0) {
+                    searchResults.classList.add('hidden');
+                    return;
+                }
+                
+                const results = foodDB.filter(f => f.name.toLowerCase().includes(query));
+                
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="p-4 text-slate-500 text-sm text-center">לא נמצאו תוצאות.</div>';
+                } else {
+                    searchResults.innerHTML = '';
+                    results.forEach(food => {
+                        const div = document.createElement('div');
+                        div.className = "p-3 hover:bg-slate-50 border-b border-slate-100 cursor-pointer flex justify-between items-center transition-colors";
+                        div.innerHTML = `
+                            <div>
+                                <div class="font-bold text-slate-800 text-sm">${food.name}</div>
+                                <div class="text-xs text-slate-400">100g = ${food.cal} קל' | P:${food.p} C:${food.c} F:${food.f}</div>
+                            </div>
+                            <button class="bg-teal-100 text-teal-700 p-1.5 rounded-lg"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                        `;
+                        div.addEventListener('click', () => selectFood(food));
+                        searchResults.appendChild(div);
+                    });
+                    lucide.createIcons();
+                }
+                searchResults.classList.remove('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if(!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add('hidden');
+                }
+            });
+
+            function selectFood(food) {
+                currentSelectedFood = food;
+                searchResults.classList.add('hidden');
+                searchInput.value = '';
+                
+                document.getElementById('selectedFoodName').innerText = food.name;
+                document.getElementById('selectedFoodMicros').innerText = food.micros;
+                document.getElementById('foodAmount').value = 100;
+                
+                updateDynamicPreview();
+                addFoodForm.classList.remove('hidden');
+            }
+
+            document.getElementById('cancelFoodBtn').addEventListener('click', () => {
+                addFoodForm.classList.add('hidden');
+                currentSelectedFood = null;
+            });
+
+            const foodAmountInput = document.getElementById('foodAmount');
+            foodAmountInput.addEventListener('input', updateDynamicPreview);
+
+            function updateDynamicPreview() {
+                if(!currentSelectedFood) return;
+                const amt = parseFloat(foodAmountInput.value) || 0;
+                const ratio = amt / 100;
+                
+                document.getElementById('dynamicMacrosPreview').innerHTML = `
+                    <span>קלוריות: <b>${Math.round(currentSelectedFood.cal * ratio)}</b></span>
+                    <span class="text-pink-600">חלבון: <b>${(currentSelectedFood.p * ratio).toFixed(1)}</b></span>
+                    <span class="text-yellow-600">פחמימה: <b>${(currentSelectedFood.c * ratio).toFixed(1)}</b></span>
+                    <span class="text-emerald-600">שומן: <b>${(currentSelectedFood.f * ratio).toFixed(1)}</b></span>
+                `;
+            }
+
+            document.getElementById('confirmAddFoodBtn').addEventListener('click', () => {
+                if(!currentSelectedFood) return;
+                const amt = parseFloat(foodAmountInput.value);
+                if(!amt || amt <= 0) { alert("הזן כמות תקינה"); return; }
+
+                const ratio = amt / 100;
+                const mealItem = {
+                    id: Date.now(),
+                    foodId: currentSelectedFood.id,
+                    name: currentSelectedFood.name,
+                    amount: amt,
+                    cal: Math.round(currentSelectedFood.cal * ratio),
+                    p: currentSelectedFood.p * ratio,
+                    c: currentSelectedFood.c * ratio,
+                    f: currentSelectedFood.f * ratio
+                };
+
+                currentMeal.push(mealItem);
+                addFoodForm.classList.add('hidden');
+                currentSelectedFood = null;
+                renderMeal();
+                showToast("המאכל צורף לארוחה!");
+            });
+
+            function renderMeal() {
+                mealItemsContainer.innerHTML = '';
+                
+                if(currentMeal.length === 0) {
+                    mealItemsContainer.appendChild(emptyMealText);
+                    emptyMealText.classList.remove('hidden');
+                    clearMealBtn.classList.add('hidden');
+                    updateTotals();
+                    return;
+                }
+                
+                emptyMealText.classList.add('hidden');
+                clearMealBtn.classList.remove('hidden');
+
+                currentMeal.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = "bg-white p-3 border border-slate-100 rounded-xl flex justify-between items-center shadow-sm";
+                    div.innerHTML = `
+                        <div class="flex-1 pr-2">
+                            <div class="font-bold text-slate-800 text-sm">${item.name} (${item.amount}g)</div>
+                            <div class="text-xs text-slate-500 mt-1">
+                                <span class="text-slate-700">${item.cal} קל'</span> | 
+                                <span class="text-pink-500">P:${item.p.toFixed(1)}</span> 
+                                <span class="text-yellow-500">C:${item.c.toFixed(1)}</span> 
+                                <span class="text-emerald-500">F:${item.f.toFixed(1)}</span>
+                            </div>
+                        </div>
+                        <button class="remove-meal-item text-slate-300 hover:text-red-500 p-2" data-id="${item.id}">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                    `;
+                    mealItemsContainer.appendChild(div);
+                });
+                lucide.createIcons();
+
+                document.querySelectorAll('.remove-meal-item').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.currentTarget.getAttribute('data-id'));
+                        currentMeal = currentMeal.filter(i => i.id !== id);
+                        renderMeal();
+                    });
+                });
+
+                updateTotals();
+            }
+
+            function updateTotals() {
+                let tCal = 0, tP = 0, tC = 0, tF = 0;
+                currentMeal.forEach(item => {
+                    tCal += item.cal;
+                    tP += item.p;
+                    tC += item.c;
+                    tF += item.f;
+                });
+
+                document.getElementById('totalCals').innerText = tCal;
+                document.getElementById('totalP').innerText = Math.round(tP);
+                document.getElementById('totalC').innerText = Math.round(tC);
+                document.getElementById('totalF').innerText = Math.round(tF);
+            }
+
+            clearMealBtn.addEventListener('click', () => {
+                if(confirm("לנקות את הארוחה?")) {
+                    currentMeal = [];
+                    renderMeal();
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
+
+
+```
