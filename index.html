@@ -688,16 +688,18 @@
 
             // --- PR Data & Chart Logic ---
             const prData = [
-                { id: 'bench_incline_smith', name: 'לחיצת חזה בסמית עליון', note: '', current: '20kg צד x 5', isNewPR: true, history: [{ date: '2026-05-03', weight: 20, reps: 5 }], unit: 'kg צד' },
-                { id: 'wide_row', name: 'חתירה רחבה', note: '', current: '32.5kg צד x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 32.5, reps: 8 }], unit: 'kg צד' },
-                { id: 'lat_raises', name: 'הרחקות כתפיים', note: '', current: '6kg x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 6, reps: 6 }], unit: 'kg' },
-                { id: 'pulldown_machine', name: 'פולי עליון במכונה', note: '', current: '35kg צד x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 35, reps: 6 }], unit: 'kg צד' },
-                { id: 'dips_assisted', name: 'מקבילים (גרביטון)', note: 'עבודה על טכניקה', current: '-112kg', isNewPR: true, history: [{ date: '2026-05-03', weight: -112, reps: 0 }], unit: 'kg (עזר)' },
-                { id: 'db_flyes', name: 'פרפר משקולות', note: '', current: '7kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 7, reps: 8 }], unit: 'kg' },
-                { id: 'hack_squat', name: 'האק סקוואט', note: '', current: '80kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 80, reps: 8 }], unit: 'kg' },
-                { id: 'preacher_machine', name: 'כומר במכונה', note: '', current: '15kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 15, reps: 8 }], unit: 'kg' },
-                { id: 'lying_leg_curl', name: 'כפיפה בשכיבה', note: '', current: '8 פלטות x 10', isNewPR: true, history: [{ date: '2026-05-03', weight: 8, reps: 10 }], unit: 'פלטות' },
-                { id: 'skull_crusher', name: 'סקול קראשר', note: '', current: '15kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 15, reps: 8 }], unit: 'kg' }
+                { id: 'bench_incline_smith', name: 'לחיצת חזה בסמית עליון', note: '', current: '20kg צד x 5', isNewPR: false, history: [{ date: '2026-05-03', weight: 20, reps: 5 }], unit: 'kg צד' },
+                { id: 'wide_row', name: 'חתירה רחבה', note: '', current: '35kg צד x 5', isNewPR: true, history: [{ date: '2026-05-03', weight: 32.5, reps: 8 }, { date: '2026-05-07', weight: 35, reps: 5 }], unit: 'kg צד' },
+                { id: 'lat_raises', name: 'הרחקות כתפיים (בישיבה)', note: '', current: '7kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 6, reps: 6 }, { date: '2026-05-07', weight: 7, reps: 8 }], unit: 'kg' },
+                { id: 'pulldown_machine', name: 'פולי עליון במכונה', note: '', current: '37.5kg צד x 5', isNewPR: true, history: [{ date: '2026-05-03', weight: 35, reps: 6 }, { date: '2026-05-07', weight: 37.5, reps: 5 }], unit: 'kg צד' },
+                { id: 'dips_assisted', name: 'מקבילים (גרביטון)', note: 'עבודה על טכניקה', current: '-112kg x 3', isNewPR: true, history: [{ date: '2026-05-03', weight: -112, reps: 0 }, { date: '2026-05-07', weight: -112, reps: 3 }], unit: 'kg (עזר)' },
+                { id: 'db_flyes', name: 'פרפר משקולות', note: '', current: '7kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 7, reps: 8 }], unit: 'kg' },
+                { id: 'hack_squat', name: 'האק סקוואט', note: '', current: '80kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 80, reps: 8 }], unit: 'kg' },
+                { id: 'leg_press', name: 'לחיצת רגליים', note: '', current: '160kg x 8', isNewPR: true, history: [{ date: '2026-05-07', weight: 160, reps: 8 }], unit: 'kg' },
+                { id: 'preacher_machine', name: 'כומר במכונה', note: '', current: '15kg x 10', isNewPR: true, history: [{ date: '2026-05-03', weight: 15, reps: 8 }, { date: '2026-05-07', weight: 15, reps: 10 }], unit: 'kg' },
+                { id: 'roman_chair', name: 'כיסא רומי', note: '', current: 'משקל גוף x 6', isNewPR: true, history: [{ date: '2026-05-07', weight: 0, reps: 6 }], unit: 'kg' },
+                { id: 'lying_leg_curl', name: 'כפיפה בשכיבה', note: '', current: '8 פלטות x 10', isNewPR: false, history: [{ date: '2026-05-03', weight: 8, reps: 10 }], unit: 'פלטות' },
+                { id: 'skull_crusher', name: 'סקול קראשר', note: '', current: '15kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 15, reps: 8 }], unit: 'kg' }
             ];
 
             const prTableBody = document.querySelector('#prTable tbody');
@@ -712,7 +714,13 @@
                     tr.onclick = () => openChart(pr);
                     
                     let noteHtml = pr.note ? `<div class="text-xs text-slate-500 font-normal mt-0.5">${pr.note}</div>` : '';
-                    let newBadgeHtml = pr.isNewPR ? `<span class="bg-gradient-to-r from-slate-600 to-slate-800 text-white text-[10px] font-black rounded px-1.5 py-0.5 shadow-sm tracking-wider uppercase">Base</span>` : '';
+                    
+                    let newBadgeHtml = '';
+                    if (pr.history.length > 1 && pr.isNewPR) {
+                        newBadgeHtml = `<span class="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-black rounded px-1.5 py-0.5 shadow-sm tracking-wider uppercase animate-pulse">שיא חדש!</span>`;
+                    } else if (pr.isNewPR) {
+                        newBadgeHtml = `<span class="bg-gradient-to-r from-slate-600 to-slate-800 text-white text-[10px] font-black rounded px-1.5 py-0.5 shadow-sm tracking-wider uppercase">Base</span>`;
+                    }
                     
                     tr.innerHTML = `
                         <td class="px-6 py-4 text-sm font-bold text-slate-800">
@@ -883,7 +891,7 @@
 
             renderWeights();
 
-            // --- Food Database (Same as original) ---
+            // --- Food Database ---
             const foodDB = [
                 { id: 1, name: "חזה עוף (מבושל/צלוי)", cal: 165, p: 31, c: 0, f: 3.6, micros: "חלבון רזה" },
                 { id: 2, name: "בקר טחון רזה (מבושל)", cal: 250, p: 26, c: 0, f: 15, micros: "ברזל" },
@@ -1087,6 +1095,6 @@
     </script>
 </body>
 </html>
-
-
 ```
+
+לחיצה על כל אחת מהשורות בטבלת ה-PRs (תחת לשונית "התקדמות") תפתח את הגרף שמראה את העלייה במשקלים! תמשיך ככה! 💪
