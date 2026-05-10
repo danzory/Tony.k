@@ -241,8 +241,8 @@
                 <div id="progressContent" class="hidden">
                     <div class="bg-teal-50 border border-teal-200 rounded-2xl p-6 text-center mb-8">
                         <i data-lucide="rocket" class="w-12 h-12 text-teal-500 mx-auto mb-3"></i>
-                        <h2 class="text-xl font-bold text-teal-900 mb-2">יוצאים לדרך חדשה!</h2>
-                        <p class="text-teal-700 text-sm">כאן יעודכנו משקלי העבודה וההתקדמות שלך ככל שנתקדם בתוכנית. כרגע, המיקוד הוא על בניית בסיס טכני חזק ויצירת שגרת אימונים.</p>
+                        <h2 class="text-xl font-bold text-teal-900 mb-2">עבודה מעולה! הגוף מגיב!</h2>
+                        <p class="text-teal-700 text-sm">ראינו קפיצה משמעותית במשקלי העבודה כמעט בכל התרגילים. תמשיך להקפיד על הטכניקה, במיוחד עכשיו כשהמשקלים מתחילים לעלות.</p>
                     </div>
 
                     <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
@@ -687,18 +687,20 @@
             }
 
             // --- PR Data & Chart Logic ---
+            const currentDate = '2026-05-10'; // Using current date for new PRs
             const prData = [
-                { id: 'bench_incline_smith', name: 'לחיצת חזה בסמית עליון', note: '', current: '20kg צד x 5', isNewPR: false, history: [{ date: '2026-05-03', weight: 20, reps: 5 }], unit: 'kg צד' },
-                { id: 'wide_row', name: 'חתירה רחבה', note: '', current: '35kg צד x 5', isNewPR: true, history: [{ date: '2026-05-03', weight: 32.5, reps: 8 }, { date: '2026-05-07', weight: 35, reps: 5 }], unit: 'kg צד' },
-                { id: 'lat_raises', name: 'הרחקות כתפיים (בישיבה)', note: '', current: '7kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 6, reps: 6 }, { date: '2026-05-07', weight: 7, reps: 8 }], unit: 'kg' },
-                { id: 'pulldown_machine', name: 'פולי עליון במכונה', note: '', current: '37.5kg צד x 5', isNewPR: true, history: [{ date: '2026-05-03', weight: 35, reps: 6 }, { date: '2026-05-07', weight: 37.5, reps: 5 }], unit: 'kg צד' },
-                { id: 'dips_assisted', name: 'מקבילים (גרביטון)', note: 'עבודה על טכניקה', current: '-112kg x 3', isNewPR: true, history: [{ date: '2026-05-03', weight: -112, reps: 0 }, { date: '2026-05-07', weight: -112, reps: 3 }], unit: 'kg (עזר)' },
-                { id: 'db_flyes', name: 'פרפר משקולות', note: '', current: '7kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 7, reps: 8 }], unit: 'kg' },
-                { id: 'hack_squat', name: 'האק סקוואט', note: '', current: '80kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 80, reps: 8 }], unit: 'kg' },
-                { id: 'leg_press', name: 'לחיצת רגליים', note: '', current: '160kg x 8', isNewPR: true, history: [{ date: '2026-05-07', weight: 160, reps: 8 }], unit: 'kg' },
-                { id: 'preacher_machine', name: 'כומר במכונה', note: '', current: '15kg x 10', isNewPR: true, history: [{ date: '2026-05-03', weight: 15, reps: 8 }, { date: '2026-05-07', weight: 15, reps: 10 }], unit: 'kg' },
-                { id: 'roman_chair', name: 'כיסא רומי', note: '', current: 'משקל גוף x 6', isNewPR: true, history: [{ date: '2026-05-07', weight: 0, reps: 6 }], unit: 'kg' },
-                { id: 'lying_leg_curl', name: 'כפיפה בשכיבה', note: '', current: '8 פלטות x 10', isNewPR: false, history: [{ date: '2026-05-03', weight: 8, reps: 10 }], unit: 'פלטות' },
+                { id: 'bench_incline_smith', name: 'לחיצת חזה בסמית עליון', note: '', current: '20kg צד x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 20, reps: 5 }, { date: currentDate, weight: 20, reps: 6 }], unit: 'kg צד' },
+                { id: 'wide_row', name: 'חתירה רחבה / T-Bar', note: '', current: '30kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 32.5, reps: 8 }, { date: '2026-05-07', weight: 35, reps: 5 }, { date: currentDate, weight: 30, reps: 8 }], unit: 'kg' }, // Changed to T-Bar
+                { id: 'lat_raises', name: 'הרחקות כתפיים (בישיבה)', note: '', current: '7kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 6, reps: 6 }, { date: '2026-05-07', weight: 7, reps: 8 }], unit: 'kg' },
+                { id: 'smith_shoulder_press', name: 'לחיצת כתפיים סמית מאחורי הראש', note: '', current: '10kg צד x 6', isNewPR: true, history: [{ date: currentDate, weight: 10, reps: 6 }], unit: 'kg צד' }, // New Exercise
+                { id: 'pulldown_machine', name: 'פולי עליון במכונה', note: '', current: '37.5kg צד x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 35, reps: 6 }, { date: '2026-05-07', weight: 37.5, reps: 5 }, { date: currentDate, weight: 37.5, reps: 6 }], unit: 'kg צד' },
+                { id: 'dips_assisted', name: 'מקבילים (גרביטון)', note: 'עבודה על טכניקה', current: '-112kg x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: -112, reps: 0 }, { date: '2026-05-07', weight: -112, reps: 3 }, { date: currentDate, weight: -112, reps: 6 }], unit: 'kg (עזר)' },
+                { id: 'db_flyes', name: 'פרפר משקולות', note: '', current: '9kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 7, reps: 8 }, { date: currentDate, weight: 9, reps: 8 }], unit: 'kg' },
+                { id: 'hack_squat', name: 'האק סקוואט', note: '', current: '90kg x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 80, reps: 8 }, { date: currentDate, weight: 90, reps: 6 }], unit: 'kg' },
+                { id: 'leg_press', name: 'לחיצת רגליים', note: '', current: '160kg x 8', isNewPR: false, history: [{ date: '2026-05-07', weight: 160, reps: 8 }, { date: currentDate, weight: 160, reps: 8 }], unit: 'kg' },
+                { id: 'preacher_machine', name: 'כומר במכונה', note: '', current: '17.5kg x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 15, reps: 8 }, { date: '2026-05-07', weight: 15, reps: 10 }, { date: currentDate, weight: 17.5, reps: 8 }], unit: 'kg' },
+                { id: 'roman_chair', name: 'כיסא רומי', note: '', current: 'משקל גוף x 10', isNewPR: true, history: [{ date: '2026-05-07', weight: 0, reps: 6 }, { date: currentDate, weight: 0, reps: 10 }], unit: 'kg' },
+                { id: 'lying_leg_curl', name: 'כפיפה בשכיבה', note: '', current: '9 פלטות x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 8, reps: 10 }, { date: currentDate, weight: 9, reps: 8 }], unit: 'פלטות' },
                 { id: 'skull_crusher', name: 'סקול קראשר', note: '', current: '15kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 15, reps: 8 }], unit: 'kg' }
             ];
 
@@ -1095,6 +1097,3 @@
     </script>
 </body>
 </html>
-```
-
-לחיצה על כל אחת מהשורות בטבלת ה-PRs (תחת לשונית "התקדמות") תפתח את הגרף שמראה את העלייה במשקלים! תמשיך ככה! 💪
