@@ -26,7 +26,7 @@
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
 
         .tab-active {
-            color: #0f766e; /* Teal-700 */
+            color: #0f766e;
             border-bottom: 2px solid #0f766e;
             background-color: rgba(15, 118, 110, 0.05);
         }
@@ -108,7 +108,6 @@
                     </g>
                      <rect x="88" y="18" width="6" height="14" rx="2" fill="#4a5568"/>
                     
-                    <!-- Modified the line color to match Tony's Teal theme -->
                     <path d="M 32 25 L 50 25 L 53 28 L 58 10 L 63 45 L 66 25 L 88 25" stroke="#0d9488" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
                 </svg>
             </div>
@@ -137,7 +136,6 @@
             
             <div id="contentPanes" class="pb-10">
                 
-                <!-- PROFILE TAB -->
                 <div id="profileContent">
                     <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden mb-6">
                         <div class="bg-teal-600 px-6 py-4 flex items-center gap-3">
@@ -237,7 +235,6 @@
                     </div>
                 </div>
 
-                <!-- PROGRESS TAB -->
                 <div id="progressContent" class="hidden">
                     <div class="bg-teal-50 border border-teal-200 rounded-2xl p-6 text-center mb-8">
                         <i data-lucide="rocket" class="w-12 h-12 text-teal-500 mx-auto mb-3"></i>
@@ -253,14 +250,12 @@
                          <div class="overflow-x-auto smooth-scroll">
                              <table class="min-w-full divide-y divide-slate-100" id="prTable">
                                 <tbody class="bg-white divide-y divide-slate-50">
-                                    <!-- Rows will be dynamically populated -->
-                                </tbody>
+                                    </tbody>
                              </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- TRAINING TAB -->
                 <div id="trainingContent" class="hidden">
                     <div class="space-y-6">
                         
@@ -288,7 +283,6 @@
                             </div>
                         </div>
 
-                        <!-- Locked Training Plans placeholder -->
                         <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden">
                             <div class="p-8 text-center flex flex-col items-center justify-center min-h-[300px]">
                                 <div class="bg-slate-100 p-4 rounded-full mb-4">
@@ -304,7 +298,6 @@
                     </div>
                 </div>
 
-                <!-- NUTRITION TAB -->
                 <div id="nutritionContent" class="hidden">
                     <div class="space-y-6">
                         
@@ -316,9 +309,7 @@
                             </div>
                         </div>
 
-                        <!-- MENU SECTION -->
                         <div class="bg-[#1e293b] rounded-3xl shadow-xl overflow-hidden text-slate-200 border border-slate-700">
-                            <!-- Menu Header -->
                             <div class="bg-[#0f172a] px-6 py-5 border-b border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
                                 <div class="flex items-center gap-3">
                                     <div class="bg-teal-500/20 p-2.5 rounded-xl">
@@ -338,7 +329,6 @@
 
                             <div class="p-4 sm:p-6 space-y-6">
                                 
-                                <!-- MEAL 1 -->
                                 <div class="bg-[#2a364a] rounded-2xl p-5 border border-slate-600/50 relative">
                                     <div class="flex justify-between items-start mb-4">
                                         <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="sunrise" class="w-5 h-5 text-amber-400"></i> ארוחה 1: בוקר / מאוחרת</h3>
@@ -384,7 +374,6 @@
                                     </div>
                                 </div>
 
-                                <!-- MEAL 2 -->
                                 <div class="bg-[#2a364a] rounded-2xl p-5 border border-slate-600/50 relative">
                                     <div class="flex justify-between items-start mb-4">
                                         <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="sun" class="w-5 h-5 text-yellow-400"></i> ארוחה 2: צהריים / אחרי אימון</h3>
@@ -429,7 +418,6 @@
                                     </div>
                                 </div>
 
-                                <!-- MEAL 3 -->
                                 <div class="bg-[#2a364a] rounded-2xl p-5 border border-slate-600/50 relative">
                                     <div class="flex justify-between items-start mb-4">
                                         <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="coffee" class="w-5 h-5 text-orange-300"></i> ארוחה 3: ארוחת ביניים</h3>
@@ -464,7 +452,6 @@
                                     </div>
                                 </div>
 
-                                <!-- MEAL 4 -->
                                 <div class="bg-[#2a364a] rounded-2xl p-5 border border-slate-600/50 relative">
                                     <div class="flex justify-between items-start mb-4">
                                         <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="moon" class="w-5 h-5 text-indigo-400"></i> ארוחה 4: ערב</h3>
@@ -509,13 +496,11 @@
                                     </div>
                                 </div>
 
-                                <!-- SNACK -->
                                 <div class="bg-slate-800/80 rounded-2xl p-4 border border-slate-700 border-dashed relative">
                                     <h3 class="text-base font-bold text-slate-300 flex items-center gap-2 mb-2"><i data-lucide="cookie" class="w-4 h-4 text-amber-500"></i> נשנוש (אופציונלי - עד 150 קלוריות)</h3>
                                     <p class="text-sm text-slate-400">אם רעבים בין הארוחות: פרי אחד (תפוח/בננה/תפוז), או 2 פריכיות עם שכבה דקה של גבינה/חמאת בוטנים, או מעדן חלבון קטן.</p>
                                 </div>
 
-                                <!-- GUIDELINES -->
                                 <div class="mt-8 bg-[#1e293b] p-5 rounded-2xl border-t-4 border-teal-500">
                                     <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="info" class="w-5 h-5 text-teal-400"></i> דגשים חשובים לתהליך</h3>
                                     <ul class="space-y-3 text-sm text-slate-300">
@@ -552,8 +537,7 @@
                                 <div class="mt-6">
                                     <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wide mb-3 border-b border-slate-100 pb-2">היסטוריית שקילות</h4>
                                     <ul id="weightHistoryList" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1">
-                                        <!-- Weight history will load here -->
-                                    </ul>
+                                        </ul>
                                 </div>
                             </div>
                         </div>
@@ -639,7 +623,6 @@
             </div>
         </div>
 
-        <!-- Chart Modal -->
         <div id="chartModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
             <div class="bg-white rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl transform transition-all">
                 <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
@@ -687,23 +670,24 @@
             }
 
             // --- PR Data & Chart Logic ---
-            const currentDate = '2026-05-14'; // תאריך של היום
+            const currentDate = '2026-05-14'; 
+            // רשימת בסיס של טוני (הערה: חלק מהתרגילים כאן הם במשקל לצד וחלק למשקל כולל, אם מעכשיו תזין רק משקל כולל בטלגרם יתכן ותראה קפיצה בגרף בגלל המעבר לשיטה החדשה, זה תקין).
             const prData = [
                 { id: 'bench_incline_smith', name: 'לחיצת חזה בסמית עליון', note: '', current: '20kg צד x 6', isNewPR: false, history: [{ date: '2026-05-03', weight: 20, reps: 5 }, { date: '2026-05-10', weight: 20, reps: 6 }], unit: 'kg צד' },
-                { id: 'bb_row', name: 'חתירה במוט', note: 'מחליף חתירה T-Bar', current: '40kg x 8', isNewPR: true, history: [{ date: currentDate, weight: 40, reps: 8 }], unit: 'kg' }, // Added new exercise
+                { id: 'bb_row', name: 'חתירה במוט', note: 'מחליף חתירה T-Bar', current: '40kg x 8', isNewPR: true, history: [{ date: currentDate, weight: 40, reps: 8 }], unit: 'kg' },
                 { id: 'wide_row', name: 'חתירה רחבה / T-Bar', note: 'הוחלף בחתירה מוט', current: '30kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 32.5, reps: 8 }, { date: '2026-05-07', weight: 35, reps: 5 }, { date: '2026-05-10', weight: 30, reps: 8 }], unit: 'kg' },
-                { id: 'lat_raises', name: 'הרחקות כתפיים (בישיבה)', note: '', current: '7kg x 10', isNewPR: true, history: [{ date: '2026-05-03', weight: 6, reps: 6 }, { date: '2026-05-07', weight: 7, reps: 8 }, { date: currentDate, weight: 7, reps: 10 }], unit: 'kg' }, // Updated
+                { id: 'lat_raises', name: 'הרחקות כתפיים (בישיבה)', note: '', current: '7kg x 10', isNewPR: true, history: [{ date: '2026-05-03', weight: 6, reps: 6 }, { date: '2026-05-07', weight: 7, reps: 8 }, { date: currentDate, weight: 7, reps: 10 }], unit: 'kg' },
                 { id: 'smith_shoulder_press', name: 'לחיצת כתפיים סמית מאחורי הראש', note: '', current: '10kg צד x 6', isNewPR: false, history: [{ date: '2026-05-10', weight: 10, reps: 6 }], unit: 'kg צד' }, 
-                { id: 'pulldown_machine', name: 'פולי עליון במכונה', note: '', current: '37.5kg צד x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 35, reps: 6 }, { date: '2026-05-07', weight: 37.5, reps: 5 }, { date: '2026-05-10', weight: 37.5, reps: 6 }, { date: currentDate, weight: 37.5, reps: 8 }], unit: 'kg צד' }, // Updated
-                { id: 'dips_assisted', name: 'מקבילים (גרביטון)', note: 'עבודה על טכניקה', current: '-105kg x 5', isNewPR: true, history: [{ date: '2026-05-03', weight: -112, reps: 0 }, { date: '2026-05-07', weight: -112, reps: 3 }, { date: '2026-05-10', weight: -112, reps: 6 }, { date: currentDate, weight: -105, reps: 5 }], unit: 'kg (עזר)' }, // Updated
-                { id: 'cable_flyes', name: 'פרפר בקרוס (בעמידה)', note: 'מחליף פרפר משקולות', current: '7.5kg x 8', isNewPR: true, history: [{ date: currentDate, weight: 7.5, reps: 8 }], unit: 'kg' }, // Added new exercise
+                { id: 'pulldown_machine', name: 'פולי עליון במכונה', note: '', current: '37.5kg צד x 8', isNewPR: true, history: [{ date: '2026-05-03', weight: 35, reps: 6 }, { date: '2026-05-07', weight: 37.5, reps: 5 }, { date: '2026-05-10', weight: 37.5, reps: 6 }, { date: currentDate, weight: 37.5, reps: 8 }], unit: 'kg צד' },
+                { id: 'dips_assisted', name: 'מקבילים (גרביטון)', note: 'עבודה על טכניקה', current: '-105kg x 5', isNewPR: true, history: [{ date: '2026-05-03', weight: -112, reps: 0 }, { date: '2026-05-07', weight: -112, reps: 3 }, { date: '2026-05-10', weight: -112, reps: 6 }, { date: currentDate, weight: -105, reps: 5 }], unit: 'kg (עזר)' },
+                { id: 'cable_flyes', name: 'פרפר בקרוס (בעמידה)', note: 'מחליף פרפר משקולות', current: '7.5kg x 8', isNewPR: true, history: [{ date: currentDate, weight: 7.5, reps: 8 }], unit: 'kg' }, 
                 { id: 'db_flyes', name: 'פרפר משקולות', note: 'הוחלף לפרפר בקרוס', current: '9kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 7, reps: 8 }, { date: '2026-05-10', weight: 9, reps: 8 }], unit: 'kg' },
-                { id: 'hack_squat', name: 'האק סקוואט', note: '', current: '95kg x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 80, reps: 8 }, { date: '2026-05-10', weight: 90, reps: 6 }, { date: currentDate, weight: 95, reps: 6 }], unit: 'kg' }, // Updated
+                { id: 'hack_squat', name: 'האק סקוואט', note: '', current: '95kg x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 80, reps: 8 }, { date: '2026-05-10', weight: 90, reps: 6 }, { date: currentDate, weight: 95, reps: 6 }], unit: 'kg' },
                 { id: 'leg_press', name: 'לחיצת רגליים', note: '', current: '160kg x 8', isNewPR: false, history: [{ date: '2026-05-07', weight: 160, reps: 8 }, { date: '2026-05-10', weight: 160, reps: 8 }], unit: 'kg' },
-                { id: 'preacher_machine', name: 'כומר במכונה', note: '', current: '20kg x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 15, reps: 8 }, { date: '2026-05-07', weight: 15, reps: 10 }, { date: '2026-05-10', weight: 17.5, reps: 8 }, { date: currentDate, weight: 20, reps: 6 }], unit: 'kg' }, // Updated
-                { id: 'roman_chair', name: 'כיסא רומי (בתוספת משקל)', note: 'נוסף משקל', current: '5kg x 6', isNewPR: true, history: [{ date: '2026-05-07', weight: 0, reps: 6 }, { date: '2026-05-10', weight: 0, reps: 10 }, { date: currentDate, weight: 5, reps: 6 }], unit: 'kg' }, // Updated
+                { id: 'preacher_machine', name: 'כומר במכונה', note: '', current: '20kg x 6', isNewPR: true, history: [{ date: '2026-05-03', weight: 15, reps: 8 }, { date: '2026-05-07', weight: 15, reps: 10 }, { date: '2026-05-10', weight: 17.5, reps: 8 }, { date: currentDate, weight: 20, reps: 6 }], unit: 'kg' },
+                { id: 'roman_chair', name: 'כיסא רומי (בתוספת משקל)', note: 'נוסף משקל', current: '5kg x 6', isNewPR: true, history: [{ date: '2026-05-07', weight: 0, reps: 6 }, { date: '2026-05-10', weight: 0, reps: 10 }, { date: currentDate, weight: 5, reps: 6 }], unit: 'kg' },
                 { id: 'lying_leg_curl', name: 'כפיפה בשכיבה', note: '', current: '9 פלטות x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 8, reps: 10 }, { date: '2026-05-10', weight: 9, reps: 8 }], unit: 'פלטות' },
-                { id: 'triceps_pushdown_rope', name: 'פשיטת מרפקים חבל (מאחורי הראש)', note: 'מחליף סקול קראשר', current: '10kg x 10', isNewPR: true, history: [{ date: currentDate, weight: 10, reps: 10 }], unit: 'kg' }, // Added new exercise
+                { id: 'triceps_pushdown_rope', name: 'פשיטת מרפקים חבל (מאחורי הראש)', note: 'מחליף סקול קראשר', current: '10kg x 10', isNewPR: true, history: [{ date: currentDate, weight: 10, reps: 10 }], unit: 'kg' },
                 { id: 'skull_crusher', name: 'סקול קראשר', note: 'הוחלף לפשיטה עם חבל', current: '15kg x 8', isNewPR: false, history: [{ date: '2026-05-03', weight: 15, reps: 8 }], unit: 'kg' }
             ];
 
@@ -712,7 +696,9 @@
             const closeChartBtn = document.getElementById('closeChartBtn');
             let progressChartInstance = null;
 
-            if (prTableBody) {
+            // פונקציה לרינדור הטבלה שמקבלת את הנתונים המעודכנים (אחרי המיזוג עם Firebase)
+            function renderPrTable() {
+                prTableBody.innerHTML = '';
                 prData.forEach((pr, index) => {
                     const tr = document.createElement('tr');
                     tr.className = `active:bg-slate-50 transition-colors cursor-pointer group ${index % 2 === 0 ? 'bg-teal-50/30' : ''}`;
@@ -743,6 +729,68 @@
                     `;
                     prTableBody.appendChild(tr);
                 });
+                lucide.createIcons();
+            }
+
+            // משיכת נתונים בזמן אמת מ-Firebase
+            async function loadLiveWorkoutsAndRender() {
+                try {
+                    const dbUrl = "https://trainer-2026-default-rtdb.europe-west1.firebasedatabase.app/clients/טוני/workouts.json";
+                    const response = await fetch(dbUrl);
+                    const data = await response.json();
+
+                    if (data) {
+                        const fbWorkouts = Object.values(data);
+                        fbWorkouts.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                        fbWorkouts.forEach(fbW => {
+                            // חיפוש התרגיל ברשימה הקבועה
+                            let prEntry = prData.find(p => p.name.trim() === fbW.exercise.trim());
+                            
+                            // אם זה תרגיל חדש לגמרי שנשלח מהטלגרם ולא היה ברשימה, נוסיף אותו אוטומטית!
+                            if (!prEntry) {
+                                prEntry = {
+                                    id: 'dyn_' + Date.now() + Math.floor(Math.random() * 1000),
+                                    name: fbW.exercise,
+                                    note: 'נוסף אוטומטית מטלגרם',
+                                    current: '',
+                                    isNewPR: false,
+                                    history: [],
+                                    unit: 'kg'
+                                };
+                                prData.push(prEntry);
+                            }
+                            
+                            // הוספת האימון להיסטוריית התרגיל
+                            prEntry.history.push({
+                                date: fbW.date,
+                                weight: fbW.totalWeight,
+                                reps: fbW.reps
+                            });
+                        });
+
+                        // עדכון הנתונים הסטטיסטיים של כל התרגילים אחרי המיזוג
+                        prData.forEach(pr => {
+                            if (pr.history.length > 0) {
+                                pr.history.sort((a, b) => new Date(a.date) - new Date(b.date));
+                                const latest = pr.history[pr.history.length - 1];
+                                const maxWeight = Math.max(...pr.history.map(h => h.weight));
+                                
+                                pr.current = `${latest.weight}${pr.unit} x ${latest.reps || 0}`;
+                                pr.isNewPR = (latest.weight >= maxWeight);
+                            }
+                        });
+                    }
+                } catch (err) {
+                    console.error("שגיאה במשיכת נתונים מהענן:", err);
+                }
+                
+                // בכל מקרה מציגים את הטבלה בסוף (אם הענן נכשל, יציג את נתוני הבסיס)
+                renderPrTable();
+            }
+
+            if (prTableBody) {
+                loadLiveWorkoutsAndRender();
             }
 
             function openChart(pr) {
@@ -805,7 +853,6 @@
             }
 
             // --- Weight Tracker Logic ---
-            // טוני התחיל סביב 135-140, נשים נתון התחלתי וירטואלי
             let weightHistory = [
                 { id: 1, date: '2026-05-03', weight: 137.5 }
             ];
@@ -879,7 +926,6 @@
                 document.getElementById('weightInputVal').value = '';
                 renderWeights();
                 
-                // Show confetti if there is weight loss
                 const sorted = [...weightHistory].sort((a,b) => new Date(b.date) - new Date(a.date));
                 if (sorted.length > 1 && sorted[0].weight < sorted[1].weight) {
                      confetti({
